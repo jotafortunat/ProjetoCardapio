@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Le Gourmet - Sabores que convidam. O melhor da gastronomia em um ambiente acolhedor.">
+    <title>Le Gourmet — Cardápio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Variáveis e Reset --- */
+        :root {
+            /* Paleta Quente e Minimalista */
+            --primary-color: #D35400; /* Laranja Queimado */
+            --secondary-color: #3E2723; /* Marrom Café Escuro */
+            --accent-color: #F39C12; /* Amarelo Mostarda Suave */
+            --bg-color: #FDFBF7; /* Creme muito claro */
+            --card-bg: #FFFFFF;
+            --text-color: #5D4037;
+            --light-text: #8D6E63;
+            --border-radius: 12px;
+            --shadow: 0 4px 15px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(211, 84, 0, 0.4);
+        }
+
+        /* --- Cabeçalho --- */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 400;
+            color: var(--secondary-color);
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 90vh;
+            /* Placeholder: Imagem de hamburguer gourmet de alta qualidade */
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #FFF;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        /* --- Seção Cardápio --- */
+        .menu-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .section-title span {
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 0 auto;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border: 1px solid var(--primary-color);
+            background: transparent;
+            color: var(--primary-color);
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-item {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            /* Animação de fade-in */
+            animation: fadeIn 0.5s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        }
+
+        .menu-img {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .menu-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .menu-item:hover .menu-img img {
+            transform: scale(1.05);
+        }
+
+        .menu-info {
+            padding: 25px;
+        }
+
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .menu-header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .price {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .menu-desc {
+            color: var(--light-text);
+            font-size: 0.95rem;
+        }
+
+        /* --- Sobre --- */
+        .about-section {
+            background-color: #EFEBE9;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .about-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .info-box {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .info-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        /* --- Contato --- */
+        .contact-section {
+            padding: 80px 0;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary-color);
+        }
+
+        .map-placeholder {
+            background-color: #ddd;
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            text-align: center;
+            padding: 20px;
+            background-image: url('https://via.placeholder.com/600x400?text=Mapa+do+Restaurante');
+            background-size: cover;
+            position: relative;
+        }
+        
+        /* Simulação visual do mapa para não usar iframe real vazio */
+        .map-overlay {
+            background: rgba(255,255,255,0.8);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--secondary-color);
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .social-icons {
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            line-height: 40px;
+            margin: 0 5px;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* --- Responsividade --- */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } /* Poderia ser um menu hambúrguer, simplificado aqui */
+            .contact-container { grid-template-columns: 1fr; }
+            nav { justify-content: center; }
+            .logo { margin-bottom: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Le Gourmet</div>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#cardapio">Cardápio</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-content container">
+                <h1>Descubra sabores que convidam</h1>
+                <p>Ingredientes frescos, receitas artesanais e uma experiência inesquecível.</p>
+                <a href="#cardapio" class="btn">Ver Cardápio</a>
+            </div>
+        </section>
+
+        <section id="cardapio" class="menu-section container">
+            <div class="section-title">
+                <h2>Nosso Menu</h2>
+                <span></span>
+            </div>
+
+            <div class="filters">
+                <button class="filter-btn active" onclick="filterMenu('all')">Todos</button>
+                <button class="filter-btn" onclick="filterMenu('burgers')">Burgers</button>
+                <button class="filter-btn" onclick="filterMenu('massas')">Massas & Pizzas</button>
+                <button class="filter-btn" onclick="filterMenu('acomp')">Acompanhamentos</button>
+            </div>
+
+            <div class="menu-grid" id="menuGrid">
+                
+                <div class="menu-item" data-category="burgers">
+                    <div class="menu-img">
+                        <img src="assets/img/burguer.jpg" alt="Hambúrguer Clássico" loading="lazy">
+                    </div>
+                    <div class="menu-info">
+                        <div class="menu-header">
+                            <h3>Burger Clássico</h3>
+                            <span class="price">R$ 32,00</span>
+                        </div>
+                        <p class="menu-desc">Blend 180g, queijo cheddar, alface, tomate e maionese da casa.</p>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="massas">
+                    <div class="menu-img">
+                        <img src="assets/img/carbonara.jpg" alt="Spaghetti Carbonara" loading="lazy">
+                    </div>
+                    <div class="menu-info">
+                        <div class="menu-header">
+                            <h3>Carbonara Real</h3>
+                            <span class="price">R$ 45,00</span>
+                        </div>
+                        <p class="menu-desc">Spaghetti autêntico com guanciale, gemas, pecorino e pimenta preta.</p>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="burgers">
+                    <div class="menu-img">
+                        <img src="assets/img/smash.jpg" alt="Burger Duplo" loading="lazy">
+                    </div>
+                    <div class="menu-info">
+                        <div class="menu-header">
+                            <h3>Double Smash</h3>
+                            <span class="price">R$ 38,00</span>
+                        </div>
+                        <p class="menu-desc">Dois hambúrgueres smash, bacon crocante e queijo prato no brioche.</p>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="massas">
+                    <div class="menu-img">
+                        <img src="assets/img/pizza.jpg" alt="Pizza Margherita" loading="lazy">
+                    </div>
+                    <div class="menu-info">
+                        <div class="menu-header">
+                            <h3>Margherita</h3>
+                            <span class="price">R$ 55,00</span>
+                        </div>
+                        <p class="menu-desc">Molho de tomate san marzano, mozzarella de búfala e manjericão fresco.</p>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="acomp">
+                    <div class="menu-img">
+                        <img src="assets/img/rustica.jpg" alt="Batatas Rústicas" loading="lazy">
+                    </div>
+                    <div class="menu-info">
+                        <div class="menu-header">
+                            <h3>Batatas Rústicas</h3>
+                            <span class="price">R$ 22,00</span>
+                        </div>
+                        <p class="menu-desc">Batatas assadas com alecrim, alho e páprica defumada.</p>
+                    </div>
+                </div>
+
+                 <div class="menu-item" data-category="acomp">
+                    <div class="menu-img">
+                        <img src="assets/img/salada.jpg" alt="Salada Caesar" loading="lazy">
+                    </div>
+                    <div class="menu-info">
+                        <div class="menu-header">
+                            <h3>Salada Caesar</h3>
+                            <span class="price">R$ 28,00</span>
+                        </div>
+                        <p class="menu-desc">Alface romana, croutons, parmesão e molho caesar original.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="sobre" class="about-section">
+            <div class="container about-content">
+                <div class="section-title">
+                    <h2>Sobre o Le Gourmet</h2>
+                    <span></span>
+                </div>
+                <p>Nascemos da paixão por servir bem. No Le Gourmet, cada prato é uma história contada através de aromas e sabores. Nosso ambiente foi pensado para que você se sinta em casa, seja para um jantar romântico ou uma reunião com amigos.</p>
+                
+                <div class="info-box">
+                    <div class="info-item">
+                        <h4>Endereço</h4>
+                        <p>Rua Lapa, nº 28</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>Horário</h4>
+                        <p>Terça a Domingo<br>18h às 23h</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato" class="contact-section container">
+            <div class="section-title">
+                <h2>Fale Conosco</h2>
+                <span></span>
+            </div>
+            
+            <div class="contact-container">
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Seu Nome</label>
+                        <input type="text" id="name" placeholder="Como podemos te chamar?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefone</label>
+                        <input type="tel" id="phone" placeholder="(XX) 99999-9999">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" rows="4" placeholder="Dúvidas, reservas ou sugestões..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Enviar Mensagem</button>
+                    
+                    <div style="margin-top: 20px; text-align: center;">
+                        <p style="font-size: 0.9rem;">Prefere WhatsApp?</p>
+                        <a href="https://wa.me/5521912345678" target="_blank" style="color: var(--primary-color); font-weight: bold; display: inline-flex; align-items: center; gap: 5px;">
+                            +55 21 91234-5678
+                        </a>
+                    </div>
+                </form>
+
+                <div class="map-placeholder">
+                    <div class="map-overlay">
+                        <h3>Localização</h3>
+                        <p>Rua Teste, nº 28</p>
+                        <p style="font-size: 0.8rem; margin-top:10px;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.1482132574065!2d-43.224040699999996!3d-22.981576699999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9bd5b21e97fc1b%3A0xa4fce692e96f7c6b!2sDomino&#39;s%20Pizza!5e0!3m2!1sen!2sbr!4v1764909124441!5m2!1sen!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="social-icons">
+                <a href="#" aria-label="Instagram">IG</a>
+                <a href="#" aria-label="Facebook">FB</a>
+                <a href="#" aria-label="TripAdvisor">TA</a>
+            </div>
+            <p>&copy; 2024 Le Gourmet. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Filtro do Cardápio
+        function filterMenu(category) {
+            const items = document.querySelectorAll('.menu-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Atualiza estado ativo dos botões
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('onclick').includes(category)) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Mostra/Esconde itens
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                    // Reinicia a animação
+                    item.style.animation = 'none';
+                    item.offsetHeight; /* trigger reflow */
+                    item.style.animation = 'fadeIn 0.5s ease';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // 2. Validação Simples do Formulário
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const message = document.getElementById('message').value;
+
+            if(name && message) {
+                alert(`Obrigado, ${name}! Recebemos sua mensagem: "${message}". Entraremos em contato em breve.`);
+                this.reset();
+            } else {
+                alert('Por favor, preencha os campos obrigatórios.');
+            }
+        });
+
+        // 3. Smooth Scroll para navegadores mais antigos (fallback)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
